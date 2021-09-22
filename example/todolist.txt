@@ -1,0 +1,12 @@
+Pasitos:
+1. Porque configurar SSH
+2. Corregir el diagrama
+3. Porque instalar librerias externas como: chalk y otros (investigar otros)
+4. Porque usare 'CommonJS Modules'
+5. Primeras Funciones
+	1.Resolver si la ruta es relativa
+	2.Validar si el archivo existe
+	3.Recorrer las carpetas
+	4.Obtener los links
+	5.Estado de la pagina web
+6. Revisar el githup projects de Andu15 para guiarme en mis pasitos
