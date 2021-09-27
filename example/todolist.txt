@@ -9,4 +9,4 @@ Pasitos:
 	3.Recorrer las carpetas
 	4.Obtener los links
 	5.Estado de la pagina web
-6. Revisar el githup projects de Andu15 para guiarme en mis pasitos
+6. Revisar el githup projects para guiarme en mis pasitos
