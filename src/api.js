@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const marked = require('marked');
 
 const rutaAbsolutaEjemplo = 'D:/LABORATORIA2021/LIM015-md-links/example/todolist.txt';
 const rutaDirectorioEjemplo = 'D:/LABORATORIA2021/LIM015-md-links/example';
@@ -52,9 +53,38 @@ const encontrarArchivosMd = (ruta) => {
     }
     return arrayDeArchivos;
 };
-console.log('Las archivos .md en total: ', encontrarArchivosMd(rutaDirectorioEjemplo));
+// console.log('Las archivos .md en total: ', encontrarArchivosMd(rutaDirectorioEjemplo));
 
-// estado de la ruta
-// const quepasa = fs.statSync(rutaAbsolutaEjemplo)
-// console.log(quepasa, 13);
  
+// funcion de leer link de archivos .md
+const leeEnlacesMd = (archivo) => {
+  const arrayDeEnlacesMd = [];
+  const archivosMd = encontrarArchivosMd(archivo);
+  archivosMd.forEach((ruta) => {
+      const leeArchivosMd = leeArchivo(ruta);
+      const renderer = new marked.Renderer();
+      renderer.link = (url, texto, urlText) => {
+        arrayDeEnlacesMd.push(
+            {
+                href: url,
+                text: urlText.substring(0, 50),
+                ruta: ruta
+              }
+          );
+      };
+      marked(leeArchivosMd, { renderer});
+  });
+  return arrayDeEnlacesMd;
+};
+console.log(leeEnlacesMd('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\prueba.md'));
+
+
+module.exports = {
+  rutaAbsoluta,
+  rutaExiste,
+  esArchivo,
+  esDirectorio,
+  esMd,
+  leeDirectorio,
+  leeArchivo,
+};
