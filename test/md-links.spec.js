@@ -1,7 +1,8 @@
-const mdLinks = require('../');
+const api = require('../api.js');
 
+const rutaRelativaEjemplo = 'example/README.md';
 
-describe('mdLinks', () => {
+describe('Retorna la ruta absoluta', () => {
 
   it('should...', () => {
     console.log('FIX ME!');
