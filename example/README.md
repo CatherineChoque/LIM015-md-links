@@ -1,12 +1,6 @@
 # Markdown Links
 
-## Índice
-
-- [1. Preámbulo](#1-preámbulo)
-
----
-
-## 1. Preámbulo
+[hola](https://www.instagram.com/p/CFS1ZQqn3Jd/0)
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
 ligero muy popular entre developers. Es usado en muchísimas plataformas que
