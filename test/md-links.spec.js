@@ -43,10 +43,10 @@ describe('API', () => {
 
   // funcion si es un archivo .md
   it('Retorna function ',() => {
-    expect(typeof api.esMd).toBe('function');
+    expect(typeof api.esArchivoMd).toBe('function');
   });
   it('Retorna true si es un archivo .md', () => {
-    expect(api.esMd(rutaRelativaEjemplo)).toBe(true);
+    expect(api.esArchivoMd(rutaRelativaEjemplo)).toBe(true);
   });
 
   // funcion lee el directorio
@@ -81,13 +81,41 @@ describe('API', () => {
     expect(typeof api.leeEnlacesMd(rutaArchivoMdEjemplo)).toBe('object');
   });
 
+  // funcion validar enlaces de archivos .md
+  it('Retorna function', () => {
+    expect(typeof api.validarConAxios).toBe('function');
+  });
+  it('Lee los link de los archivos .md y lo devuelve en un array de objetos', () => {
+    expect(typeof api.validarConAxios(rutaDirectorioEjemplo)).toBe('object');
+  });
+  it('Debería validar los links OK extraidos', () => {
+      const retornaEnlaceOk = [
+        {
+          href: 'https://www.instagram.com/pixabay/',
+          text: 'Adios',
+          ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md',
+          status: 200,
+          menssage: 'OK'
+        }
+      ];
+      return api.validarConAxios('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md').then((res) => {
+        expect(res).toEqual(retornaEnlaceOk)});
+    });
+  it('Debería validar los links FAIL extraidos', () => {
+      const retornaEnlaceFail = [
+        {
+          href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
+          text: 'hola',
+          ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md',
+          status: 404,
+          menssage: 'Fail'
+        }
+      ];
+      return api.validarConAxios('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md').then((res) => {
+        expect(res).toEqual(retornaEnlaceFail)});
+    });
+
 });
 
-// __tests__/index.test.js
-/*
-describe('initial', () => {
-  test('first tests', () => {
-    expect(true).toBe(true)
-  })
-})*/
+
 
