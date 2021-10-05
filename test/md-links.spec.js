@@ -1,4 +1,5 @@
 const api = require('../src/api.js');
+const index = require('../src/index.js');
 
 const rutaRelativaEjemplo = 'example/README.md';
 const rutaAbsolutaEjemplo = 'D:/LABORATORIA2021/LIM015-md-links/example/todolist.txt';
@@ -7,7 +8,7 @@ const rutaArchivoMdEjemplo = 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new
 
 describe('API', () => {
   // funcion que convierte una ruta relativa a absoluta
-  it('Retorna function ',() => {
+  it('Retorna function para la funcion rutaAbsoluta',() => {
     expect(typeof api.rutaAbsoluta).toBe('function');
   });
   it('Retorna la ruta absoluta', () => {
@@ -18,7 +19,7 @@ describe('API', () => {
   });
 
   // funcion existe(valida) la ruta
-  it('Retorna function ',() => {
+  it('Retorna function para la funcion rutaExiste',() => {
     expect(typeof api.rutaExiste).toBe('function');
   });
   it('Retorna true si la ruta existe', () => {
@@ -26,7 +27,7 @@ describe('API', () => {
   });
 
   // funcion si es un archivo
-  it('Retorna function ',() => {
+  it('Retorna function para la funcion esArchivo',() => {
     expect(typeof api.esArchivo).toBe('function');
   });
   it('Retorna true si es un archivo', () => {
@@ -34,7 +35,7 @@ describe('API', () => {
   });
 
   // funcion si es un directorio
-  it('Retorna function ',() => {
+  it('Retorna function para la funcion esDirectorio',() => {
     expect(typeof api.esDirectorio).toBe('function');
   });
   it('Retorna true si es un directorio', () => {
@@ -42,7 +43,7 @@ describe('API', () => {
   });
 
   // funcion si es un archivo .md
-  it('Retorna function ',() => {
+  it('Retorna function para la funcion esArchivoMd',() => {
     expect(typeof api.esArchivoMd).toBe('function');
   });
   it('Retorna true si es un archivo .md', () => {
@@ -50,7 +51,7 @@ describe('API', () => {
   });
 
   // funcion lee el directorio
-  it('Retorna function ',() => {
+  it('Retorna function para la funcion leeDirectorio',() => {
     expect(typeof api.leeDirectorio).toBe('function');
   });
   it('Lee contenido de la carpeta y lo devuelve en un array', () => {
@@ -58,7 +59,7 @@ describe('API', () => {
   });
 
   // funcion lee el archivo
-  it('Retorna function', () => {
+  it('Retorna function para la funcion leeArchivo', () => {
     expect(typeof api.leeArchivo).toBe('function');
   });
   it('Lee contenido de la carpeta y lo devuelve en un string', () => {
@@ -66,7 +67,7 @@ describe('API', () => {
   });
 
   // funcion encontrar archivos .md
-  it('Retorna function', () => {
+  it('Retorna function para la funcion encontrarArchivosMd', () => {
     expect(typeof api.encontrarArchivosMd).toBe('function');
   });
   it('Encuentra archivos .md y lo devuelve en un array', () => {
@@ -74,7 +75,7 @@ describe('API', () => {
   });
 
   // funcion lee los enlaces del archivo .md
-  it('Retorna function', () => {
+  it('Retorna function para la funcion leeEnlacesMd', () => {
     expect(typeof api.leeEnlacesMd).toBe('function');
   });
   it('Lee archivos .md y lo devuelve en un array de objetos', () => {
@@ -82,39 +83,92 @@ describe('API', () => {
   });
 
   // funcion validar enlaces de archivos .md
-  it('Retorna function', () => {
+  it('Retorna function para la funcion validarConAxios', () => {
     expect(typeof api.validarConAxios).toBe('function');
   });
   it('Lee los link de los archivos .md y lo devuelve en un array de objetos', () => {
     expect(typeof api.validarConAxios(rutaDirectorioEjemplo)).toBe('object');
   });
-  it('Debería validar los links OK extraidos', () => {
-      const retornaEnlaceOk = [
-        {
-          href: 'https://www.instagram.com/pixabay/',
-          text: 'Adios',
-          ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md',
-          status: 200,
-          menssage: 'OK'
-        }
-      ];
-      return api.validarConAxios('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md').then((res) => {
-        expect(res).toEqual(retornaEnlaceOk)});
+  /*
+  it('Valida los links OK extraidos', () => {
+      const objetoTresEstadosOk = {
+        href: 'https://www.google.com/',
+        text: 'Adios',
+        ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md',
+      };
+
+      const retornaEnlaceOk = {
+        href: 'https://www.google.com/',
+        text: 'Adios',
+        ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md',
+        status: 200,
+        menssage: 'OK'
+      };
+      return api.validarConAxios(objetoTresEstadosOk)
+      .then((res) => {expect(res).toEqual(retornaEnlaceOk)});
     });
-  it('Debería validar los links FAIL extraidos', () => {
-      const retornaEnlaceFail = [
+  it('Valida los links FAIL extraidos', () => {
+      const objetoTresEstadosFail = {
+        href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
+        text: 'hola',
+        ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md',
+      };
+      
+      const retornaEnlaceFail = {
+          href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
+          text: 'hola',
+          ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md',
+          status: 503,
+          menssage: 'Fail'
+        };
+      return api.validarConAxios(objetoTresEstadosFail)
+      .then((res) => {expect(res).toEqual(retornaEnlaceFail)});
+    });*/
+
+});
+
+
+describe('mdlinks', () => {
+  // Funcion que devuelve los estados de los link
+  it('Retorna function para la funcion mdlinks',() => {
+    expect(typeof index.mdlinks).toBe('function');
+  });
+
+  // Ingresando con options === true
+  it('options === true', () => {
+    const retornaCincoEstados = [
         {
           href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
           text: 'hola',
           ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md',
           status: 404,
           menssage: 'Fail'
-        }
-      ];
-      return api.validarConAxios('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md').then((res) => {
-        expect(res).toEqual(retornaEnlaceFail)});
-    });
+        }  
+    ];
+    return index.mdlinks('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md', {validate: true} )
+    .then((res) => {expect(res).toEqual(retornaCincoEstados)});
+  });
 
+  // Ingresando con options === false
+  it('options === false', () => {
+    const retornaTresEstados = [
+      {
+        href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
+        text: 'hola',
+        ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md'
+      }
+    ];
+    return index.mdlinks('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md', {validate: false} )
+    .then((res) => {expect(res).toEqual(retornaTresEstados)});
+  });
+
+  // Mensaje de error del catch de una ruta no valida
+  it('una ruta no valida', () => {
+    const rutaNoValida = 'la ruta no es valida o no existe';
+    return index.mdlinks('D:/LABORATORIA2021/LIM015-md-links/exam', {validate: true} )
+    .catch((error) => {expect(error).toEqual(rutaNoValida)});
+  });
+  
 });
 
 

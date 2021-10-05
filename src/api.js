@@ -7,12 +7,24 @@ const rutaAbsolutaEjemplo = 'D:/LABORATORIA2021/LIM015-md-links/example/todolist
 const rutaDirectorioEjemplo = 'D:/LABORATORIA2021/LIM015-md-links/example';
 const rutaRelativaEjemplo = 'example/README.md';
 
-// si es ruta relativa cambia a absoluta
+const objetoTresEstados = {
+  href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
+  text: 'hola',
+  ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md',
+};
+
+const objetoTresEstadosOk = {
+  href: 'https://www.google.com/',
+  text: 'Adios',
+  ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md',
+};
+
+// ---------- si es ruta relativa cambia a absoluta ----------
 const rutaAbsoluta = (ruta) => path.isAbsolute(ruta) ? ruta : path.resolve(ruta); // cambiar nombre a la funcion
 //console.log('La ruta es absoluta: ---> ', rutaAbsoluta(rutaAbsolutaEjemplo), 9); // Ruta
 //console.log('La ruta es absoluta: ---> ', rutaAbsoluta(rutaRelativaEjemplo), 10); // Ruta
 
-//si la ruta existe
+// ----------- si la ruta existe ------------
 const rutaExiste = (ruta) => fs.existsSync(ruta);
 //console.log('La ruta existe: ---> ', rutaExiste(rutaAbsolutaEjemplo), 15); // true
 
@@ -42,9 +54,7 @@ recorre el directorio -> encuentra archivos .md -> lo guarda en un array */
 const encontrarArchivosMd = (ruta) => {
   let arrayDeArchivos = [];
     if(esDirectorio(ruta)) {
-    //console.log(ruta, '---> Es una carpeta');
     const directorioDeArchivos = leeDirectorio(ruta);
-    //console.log('Los archivos de la carpeta ---> ', directorioDeArchivos, 87);
         directorioDeArchivos.forEach((elem) => {
         const rutaElem = elem;
         const nuevaRuta = path.join(ruta, rutaElem);
@@ -78,12 +88,11 @@ const leeEnlacesMd = (archivo) => {
   });
   return arrayDeEnlacesMd;
 };
-//  console.log(leeEnlacesMd(rutaRelativaEjemplo));
+// console.log(leeEnlacesMd(rutaRelativaEjemplo));
 
 // Funcion para el validar enlaces de archivos .md
 const validarConAxios = (link) => { // cambiar el nombre de tuta
-  const enlacesMd = leeEnlacesMd(link);
-  const validarEnlaces = enlacesMd.map((link) => axios(link.href)
+  return axios(link.href)
       .then((data) => {
         if (data.status >= 200 && data.status < 400) {
           return {
@@ -97,12 +106,9 @@ const validarConAxios = (link) => { // cambiar el nombre de tuta
         ...link,
         status: err.response.status,
         menssage: 'Fail'
-      })));
-  return Promise.all(validarEnlaces);
+      }));
 };
- validarConAxios('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md').then(response => (console.log(response)));
-
-
+//  validarConAxios(objetoTresEstadosOk).then(response => (console.log(response)));
 
 module.exports = {
   rutaAbsoluta,
