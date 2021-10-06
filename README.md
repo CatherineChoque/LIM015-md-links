@@ -4,7 +4,7 @@ MDLINKS es una librería que permite leer y analizar archivos en formato markdow
 
 ### Instalación
 
-$ npm install catherine-choque-mdlinks
+$ npm install catherine-choque-md-links
 
 ### Uso para importar
 
@@ -41,12 +41,8 @@ manera a través de la **terminal**:
 
 Por ejemplo:
 
-```sh
-$ md-links ./some/example.md
-./some/example.md http://algo.com/2/3/ Link a algo
-./some/example.md https://otra-cosa.net/algun-doc.html algún doc
-./some/example.md http://google.com/ Google
-```
+![1](https://user-images.githubusercontent.com/85088235/136296033-e6155d86-c6c5-4a8f-adc6-8bab8b6d12c3.JPG)
+
 
 ### Options
 
@@ -58,27 +54,13 @@ URL que responde ok, entonces consideraremos el link como ok.
 
 Por ejemplo:
 
-```sh
-$ md-links ./some/example.md --validate
-./some/example.md http://algo.com/2/3/ ok 200 Link a algo
-./some/example.md https://otra-cosa.net/algun-doc.html fail 404 algún doc
-./some/example.md http://google.com/ ok 301 Google
-```
+![2](https://user-images.githubusercontent.com/85088235/136296092-a2e6d15f-ca0a-42e2-bcd8-ca421e50e4be.JPG)
 
 `--stats`
 
-```sh
-$ md-links ./some/example.md --stats
-Total: 3
-Unique: 3
-```
+![3](https://user-images.githubusercontent.com/85088235/136296126-34cfc6db-b309-4b0a-b107-a6040f81551c.JPG)
 
 `--stats` y `--validate`
 
-```sh
-$ md-links ./some/example.md --stats --validate
-Total: 3
-Unique: 3
-Broken: 1
-```
+![4](https://user-images.githubusercontent.com/85088235/136296149-5daffbc5-3ccb-4bb8-91e4-e19521f0ffe0.JPG)
 
