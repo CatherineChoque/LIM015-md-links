@@ -6,7 +6,7 @@ Instalación
 
 $ npm install argierdfj/LIM012-fe-md-links
 
-Uso
+Uso para importar
 
 ```sh
 const mdLinks = require("catherine-choque-md-links");
