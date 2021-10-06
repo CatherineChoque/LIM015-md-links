@@ -1,11 +1,45 @@
 const api = require('../src/api.js');
-const index = require('../src/index.js');
+//const index = require('../src/index.js');
+const { mdlinks } = require('../src/index.js');
 
+// ---------- pruebas de ejemplo ---------
 const rutaRelativaEjemplo = 'example/README.md';
 const rutaAbsolutaEjemplo = 'D:/LABORATORIA2021/LIM015-md-links/example/todolist.txt';
 const rutaDirectorioEjemplo = 'D:\\LABORATORIA2021\\LIM015-md-links\\example';
 const rutaArchivoMdEjemplo = 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\prueba.md';
 
+const arrayEnlaces = [
+  {
+    href: 'https://www.google.com/',
+    text: 'Adios',
+    ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md',
+    status: 200,
+    menssage: 'OK'
+  },
+  {
+    href: 'https://www.google.com/',
+    text: 'Otra cosa',
+    ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md',
+    status: 200,
+    menssage: 'OK'
+  },
+  {
+    href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
+    text: 'Adios',
+    ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md',
+    status: 404,
+    menssage: 'FAIL'
+  },
+  {
+    href: 'https://www.instagram.com/',
+    text: 'Adios',
+    ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md',
+    status: 200,
+    menssage: 'OK'
+  },
+];
+
+// ---------- Test de mi archivo api.js ---------
 describe('API', () => {
   // funcion que convierte una ruta relativa a absoluta
   it('Retorna function para la funcion rutaAbsoluta',() => {
@@ -86,10 +120,7 @@ describe('API', () => {
   it('Retorna function para la funcion validarConAxios', () => {
     expect(typeof api.validarConAxios).toBe('function');
   });
-  it('Lee los link de los archivos .md y lo devuelve en un array de objetos', () => {
-    expect(typeof api.validarConAxios(rutaDirectorioEjemplo)).toBe('object');
-  });
-  it('Valida los links OK extraidos', (done) => {
+  it('Valida los links OK extraidos', () => {
       const objetoTresEstadosOk = {
         href: 'https://www.google.com/',
         text: 'Adios',
@@ -104,19 +135,58 @@ describe('API', () => {
         menssage: 'OK'
       };
       return api.validarConAxios(objetoTresEstadosOk)
-      .then((res) => {
-        expect(res).toStrictEqual(retornaEnlaceOk)
-        done();
-      });
-    });
+      .then((res) => {expect(res).toEqual(retornaEnlaceOk)});
+  });
+
+  it('Valida los links Fail extraidos', () => {
+    const objetoTresEstadosFail = {
+      href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
+      text: 'hola',
+      ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md'
+    };
+
+    const retornaEnlaceFail = {
+      href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
+      text: 'hola',
+      ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md',
+      status: 404,
+      menssage: 'Fail'
+    };
+    return api.validarConAxios(objetoTresEstadosFail)
+    .then((res) => {expect(res).toEqual(retornaEnlaceFail)});
+  });
+  
+  // funcion links unicos
+  it('Retorna function para la funcion enlacesUnicos', () => {
+    expect(typeof api.enlacesUnicos).toBe('function');
+  });
+  it('Lee los link unicos y devuelve un string con la cantidad', () => {
+    expect(typeof api.enlacesUnicos(arrayEnlaces)).toBe('string');
+  });
+
+  // funcion links rotos
+  it('Retorna function para la funcion enlacesRotos', () => {
+    expect(typeof api.enlacesRotos).toBe('function');
+  });
+  it('Lee los link rotos y devuelve un string con la cantidad', () => {
+    expect(typeof api.enlacesRotos(arrayEnlaces)).toBe('string');
+  });
+
+  // funcion links totales
+  it('Retorna function para la funcion totalEnlaces', () => {
+    expect(typeof api.totalEnlaces).toBe('function');
+  });
+  it('Lee el total de los link y devuelve un string con la cantidad', () => {
+    expect(typeof api.totalEnlaces(arrayEnlaces)).toBe('string');
+  });
 
 });
 
-/*
+// ---------- Test de mi archivo index.js ---------
 describe('mdlinks', () => {
   // Funcion que devuelve los estados de los link
   it('Retorna function para la funcion mdlinks',() => {
-    expect(typeof index.mdlinks).toBe('function');
+    expect(typeof mdlinks).toBe('function');
   });
 
   // Ingresando con options === true
@@ -130,8 +200,8 @@ describe('mdlinks', () => {
           menssage: 'Fail'
         }  
     ];
-    return index.mdlinks('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md', {validate: true} )
-    .then((res) => {expect(res).toEqual(retornaCincoEstados)});
+    return mdlinks('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md', {validate: true} )
+    .then((res) => {expect(res).toStrictEqual(retornaCincoEstados)});
   });
 
   // Ingresando con options === false
@@ -143,18 +213,30 @@ describe('mdlinks', () => {
         ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md'
       }
     ];
-    return index.mdlinks('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md', {validate: false} )
-    .then((res) => {expect(res).toEqual(retornaTresEstados)});
+    return mdlinks('D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md', {validate: false} )
+    .then((res) => {expect(res).toStrictEqual(retornaTresEstados)});
   });
 
   // Mensaje de error del catch de una ruta no valida
-  it('una ruta no valida', () => {
+  it('Catch de una ruta no valida', () => {
     const rutaNoValida = 'la ruta no es valida o no existe';
-    return index.mdlinks('D:/LABORATORIA2021/LIM015-md-links/exam', {validate: true} )
-    .catch((error) => {expect(error).toEqual(rutaNoValida)});
+    return mdlinks('D:/LABORATORIA2021/LIM015-md-links/exam', {validate: true} )
+    .catch((reject) => {expect(reject).toEqual(rutaNoValida)}); // .catch(reject => {console.log(reject);})
   });
-  
+
+  // Mensaje de error del catch de hay archivos md
+  it('Catch de no hay archivos .md', () => {
+    const noHayArchivos = 'no hay archivos .md';
+    return mdlinks('D:\\LABORATORIA2021\\LIM015-md-links\\example\\carpetaVasia', {validate: true} )
+    .catch((reject) => {expect(reject).toEqual(noHayArchivos)}); // .catch(reject => {console.log(reject);})
+  });
+
+  // Mensaje de error del catch de no hay links
+  it('Catch de no hay links', () => {
+    const noHayLinks = 'no hay links';
+    return mdlinks('D:\\LABORATORIA2021\\LIM015-md-links\\example\\sinLinks.md', {validate: true} )
+    .catch((reject) => {expect(reject).toEqual(noHayLinks)}); // .catch(reject => {console.log(reject);})
+  });
 });
 
-*/
 

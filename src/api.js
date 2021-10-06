@@ -7,15 +7,15 @@ const axios = require('axios');
 const rutaAbsolutaEjemplo = 'D:/LABORATORIA2021/LIM015-md-links/example/todolist.txt';
 const rutaDirectorioEjemplo = 'D:/LABORATORIA2021/LIM015-md-links/example';
 const rutaRelativaEjemplo = 'example/README.md';
-const objetoTresEstados = {
+const objetoTresEstadosOk = {
   href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
   text: 'hola',
   ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md',
 };
-const objetoTresEstadosOk = {
-  href: 'https://www.google.com/',
-  text: 'Adios',
-  ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\modelo.md',
+const objetoTresEstadosFail = {
+  href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
+  text: 'hola',
+  ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md'
 };
 const arrayEnlaces = [
   {
@@ -116,26 +116,29 @@ const leeEnlacesMd = (archivo) => {
   return arrayDeEnlacesMd;
 };
 // console.log(leeEnlacesMd(rutaRelativaEjemplo));
-
+/* eslint-disable */
 // ---------- Funcion para el validar enlaces de archivos .md ----------
-const validarConAxios = (link) => {
-  return axios(link.href)
+const validarConAxios = (objeto) => {
+  return axios(objeto.href)
       .then((data) => {
         if (data.status >= 200 && data.status < 400) {
           return {
-            ...link, 
+            ...objeto, 
             status: data.status,
             menssage: 'OK'
           };
         }      
       })
-      .catch((err) => ({
-        ...link,
-        status: err.response.status,
-        menssage: 'Fail'
-      }));
+      .catch((err) => {
+        return ({
+          ...objeto,
+          status: err.response.status,
+          menssage: 'Fail'
+        })
+      });
 };
-//  validarConAxios(objetoTresEstadosOk).then(response => (console.log(response)));
+//  validarConAxios(objetoTresEstadosFail).then(response => (console.log(response)));
+//  console.log(err.response.status , 139);
 
 // --------- Función links unicos ---------
 const enlacesUnicos = (objeto) => {
