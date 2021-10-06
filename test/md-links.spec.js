@@ -89,8 +89,7 @@ describe('API', () => {
   it('Lee los link de los archivos .md y lo devuelve en un array de objetos', () => {
     expect(typeof api.validarConAxios(rutaDirectorioEjemplo)).toBe('object');
   });
-  /*
-  it('Valida los links OK extraidos', () => {
+  it('Valida los links OK extraidos', (done) => {
       const objetoTresEstadosOk = {
         href: 'https://www.google.com/',
         text: 'Adios',
@@ -105,29 +104,15 @@ describe('API', () => {
         menssage: 'OK'
       };
       return api.validarConAxios(objetoTresEstadosOk)
-      .then((res) => {expect(res).toEqual(retornaEnlaceOk)});
+      .then((res) => {
+        expect(res).toStrictEqual(retornaEnlaceOk)
+        done();
+      });
     });
-  it('Valida los links FAIL extraidos', () => {
-      const objetoTresEstadosFail = {
-        href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
-        text: 'hola',
-        ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md',
-      };
-      
-      const retornaEnlaceFail = {
-          href: 'https://www.instagram.com/p/CFS1ZQqn3Jd/0',
-          text: 'hola',
-          ruta: 'D:\\LABORATORIA2021\\LIM015-md-links\\example\\new\\ejemplo\\archivofail.md',
-          status: 503,
-          menssage: 'Fail'
-        };
-      return api.validarConAxios(objetoTresEstadosFail)
-      .then((res) => {expect(res).toEqual(retornaEnlaceFail)});
-    });*/
 
 });
 
-
+/*
 describe('mdlinks', () => {
   // Funcion que devuelve los estados de los link
   it('Retorna function para la funcion mdlinks',() => {
@@ -171,5 +156,5 @@ describe('mdlinks', () => {
   
 });
 
-
+*/
 
