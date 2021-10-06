@@ -1,12 +1,12 @@
-Markdown Links
+# Markdown Links
 
 MDLINKS es una librería que permite leer y analizar archivos en formato markdown para verificar los links que contengan y reportar algunas estadísticas.
 
-Instalación
+### Instalación
 
 $ npm install argierdfj/LIM012-fe-md-links
 
-Uso para importar
+### Uso para importar
 
 ```sh
 const mdLinks = require("catherine-choque-md-links");
@@ -32,7 +32,7 @@ mdLinks("./some/dir")
   .catch(console.error);
 ```
 
-CLI
+### CLI
 
 El ejecutable de nuestra aplicación debe poder ejecutarse de la siguiente
 manera a través de la **terminal**:
@@ -48,7 +48,7 @@ $ md-links ./some/example.md
 ./some/example.md http://google.com/ Google
 ```
 
-Options
+### Options
 
 `--validate`
 
