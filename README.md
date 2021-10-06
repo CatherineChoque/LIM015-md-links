@@ -4,7 +4,7 @@ MDLINKS es una librería que permite leer y analizar archivos en formato markdow
 
 ### Instalación
 
-$ npm install argierdfj/LIM012-fe-md-links
+$ npm install catherine-choque-mdlinks
 
 ### Uso para importar
 
