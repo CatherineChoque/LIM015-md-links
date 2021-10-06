@@ -39,7 +39,7 @@ const mdlinks = (ruta, option) => {
   });
 };
 /*
-mdlinks(rutaValida, {validate: true})
+mdlinks(archivoMdConLink, {validate: true})
 .then( res => {
   console.log(res);
 })
@@ -55,12 +55,12 @@ mdlinks(rutaValida, {validate: true})
  3ero los argumentos que el usuario le pase a mi fn -> --stats o --validate [2]
 */
 const argumento = process.argv.slice(2) // ['node', 'md-links', 'd:/ruta'] , llamamos la ruta
-
+// Esta ignora la funcion en el test | istanbul ignore next
+/* istanbul ignore next */
 const cli = (argumento) => {
-
   if (argumento.length === 1) { // true - tamaño array 1 - 'd:/ruta'
 //  mdlinks(    ruta    ,      options       )
-    mdlinks(argumento[0], { validate: false }) // D:/LABORATORIA2021/LIM015-md-links/example 
+    mdlinks(argumento[0], { validate: false }) // D:/LABORATORIA2021/LIM015-md-links/example | D:/LABORATORIA2021/LIM015-md-links/example/new/ejemplo/modelo.md
     .then(resolve => {
       resolve.map((objeto) => {
       console.log(`${chalk.yellow(objeto.href)} | ${chalk.cyan(objeto.text)} | ${chalk.green(objeto.ruta)}`); // concatena y me regresa un string
