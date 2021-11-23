@@ -150,7 +150,7 @@ const enlacesUnicos = (objeto) => {
 
 // --------- Función links rotos ---------
 const enlacesRotos = (objeto) => {
-  const roto = objeto.filter((elem) => elem.status >= 400) // array de objetos
+  const roto = objeto.filter((elem) => elem.status >= 400) // array de objetos, nuevo array
   const enlacesRotos = `\nRotos: ${roto.length}`;
   return enlacesRotos;
 };

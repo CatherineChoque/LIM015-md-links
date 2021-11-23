@@ -23,7 +23,7 @@ const mdlinks = (ruta, option) => {
               const estadosLinks = apiRuta.validarConAxios(objeto);
               return estadosLinks;
             });
-            resolve(Promise.all(buscaCadaArchivoLinks));
+            resolve(Promise.all(buscaCadaArchivoLinks)); // consume una promesa con promise.all
           }else{
             resolve(leeLinks);
           }
@@ -57,7 +57,7 @@ mdlinks(archivoMdConLink, {validate: true})
 const argumento = process.argv.slice(2) // ['node', 'md-links', 'd:/ruta'] , llamamos la ruta
 // Esta ignora la funcion en el test | istanbul ignore next
 /* istanbul ignore next */
-const cli = (argumento) => {
+const cli = () => { // corregir nomenclatura
   if (argumento.length === 1) { // true - tamaño array 1 - 'd:/ruta'
 //  mdlinks(    ruta    ,      options       )
     mdlinks(argumento[0], { validate: false }) // D:/LABORATORIA2021/LIM015-md-links/example | D:/LABORATORIA2021/LIM015-md-links/example/new/ejemplo/modelo.md
@@ -110,7 +110,7 @@ const cli = (argumento) => {
     }
   }
 };
-cli(argumento); // D:/LABORATORIA2021/LIM015-md-links/example
+cli(); // D:/LABORATORIA2021/LIM015-md-links/example
 
 module.exports = {
   mdlinks,

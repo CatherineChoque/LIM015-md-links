@@ -11,7 +11,7 @@ $ npm install catherine-choque-md-links
 ```sh
 const mdLinks = require("catherine-choque-md-links");
 ```
-
+### Modo de uso
 ```sh
 mdLinks("./some/example.md")
   .then((links) => {
